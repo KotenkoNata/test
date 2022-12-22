@@ -1,0 +1,24 @@
+{
+  "name": "typescript-udemy",
+  "version": "1.0.0",
+  "description": "type npm start in terminal for compilation in watch mode",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KotenkoNata/typescript-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KotenkoNata/typescript-practice/issues"
+  },
+  "homepage": "https://github.com/KotenkoNata/typescript-practice#readme",
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
