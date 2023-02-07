@@ -51,7 +51,7 @@ interface User{
     todoList.prepend(li);
   }
 
-  function createUserOption(user) {
+  function createUserOption(user: User) {
     const option = document.createElement('option');
     option.value = user.id;
     option.innerText = user.name;
@@ -59,7 +59,7 @@ interface User{
     userSelect.append(option);
   }
 
-  function removeTodo(todoId) {
+  function removeTodo(todoId: ID) {
     todos = todos.filter((todo) => todo.id !== todoId);
 
     const todo = todoList.querySelector(`[data-id="${todoId}"]`);
@@ -69,7 +69,7 @@ interface User{
     todo.remove();
   }
 
-  function alertError(error) {
+  function alertError(error: Error) {
     alert(error.message);
   }
 
@@ -130,7 +130,7 @@ interface User{
     }
   }
 
-  async function createTodo(todo) {
+  async function createTodo(todo: Todo) {
     try {
       const response = await fetch(
         'https://jsonplaceholder.typicode.com/todos',
@@ -151,7 +151,7 @@ interface User{
     }
   }
 
-  async function toggleTodoComplete(todoId, completed) {
+  async function toggleTodoComplete(todoId: ID, completed) {
     try {
       const response = await fetch(
         `https://jsonplaceholder.typicode.com/todos/${todoId}`,
@@ -167,12 +167,12 @@ interface User{
       if (!response.ok) {
         throw new Error('Failed to connect with the server! Please try later.');
       }
-    } catch (error) {
+    } catch (error: Error) {
       alertError(error);
     }
   }
 
-  async function deleteTodo(todoId) {
+  async function deleteTodo(todoId: ID) {
     try {
       const response = await fetch(
         `https://jsonplaceholder.typicode.com/todos/${todoId}`,
