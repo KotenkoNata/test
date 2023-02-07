@@ -89,24 +89,33 @@ interface User{
       users.forEach((user) => createUserOption(user));
     });
   }
-  function handleSubmit(event) {
+  function handleSubmit(event: Event) {
     event.preventDefault();
 
-    createTodo({
-      userId: Number(form.user.value),
-      title: form.todo.value,
-      completed: false,
-    });
+    if(form){
+      createTodo({
+        userId: Number(form.user.value),
+        title: form.todo.value,
+        completed: false,
+      });
+    }
   }
-  function handleTodoChange() {
-    const todoId = this.parentElement.dataset.id;
-    const completed = this.checked;
+  function handleTodoChange(this: HTMLInputElement) {
+    const parent = this.parentElement;
+    if(parent){
+      const todoId = parent.dataset.id;
+      const completed = this.checked;
 
-    toggleTodoComplete(todoId, completed);
+      todoId && toggleTodoComplete(todoId, completed);
+    }
   }
-  function handleClose() {
-    const todoId = this.parentElement.dataset.id;
-    deleteTodo(todoId);
+  function handleClose(this: HTMLSpanElement) {
+    const parent = this.parentElement;
+    if(parent){
+      const todoId = parent.dataset.id;
+      todoId && deleteTodo(todoId);
+    }
+
   }
 
   // Async logic
@@ -119,6 +128,7 @@ interface User{
 
       return data;
     } catch (error) {
+      if(error instanceof Error)
       alertError(error);
     }
   }
@@ -132,11 +142,12 @@ interface User{
 
       return data;
     } catch (error) {
+      if(error instanceof Error)
       alertError(error);
     }
   }
 
-  async function createTodo(todo: Todo) {
+  async function createTodo(todo: Omit<Todo, 'id'>) {
     try {
       const response = await fetch(
         'https://jsonplaceholder.typicode.com/todos',
@@ -153,6 +164,7 @@ interface User{
 
       printTodo(newTodo);
     } catch (error) {
+      if(error instanceof Error)
       alertError(error);
     }
   }
@@ -173,7 +185,8 @@ interface User{
       if (!response.ok) {
         throw new Error('Failed to connect with the server! Please try later.');
       }
-    } catch (error: Error) {
+    } catch (error) {
+      if(error instanceof Error)
       alertError(error);
     }
   }
@@ -196,6 +209,7 @@ interface User{
         throw new Error('Failed to connect with the server! Please try later.');
       }
     } catch (error) {
+      if(error instanceof Error)
       alertError(error);
     }
   }
