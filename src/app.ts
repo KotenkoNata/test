@@ -1,17 +1,29 @@
+type ID = string | number;
+
+interface Todo{
+  userId: ID,
+  id: ID,
+  title: string,
+  completed: boolean
+}
+interface User{
+  id: ID,
+  name: string,
+}
 (function() {
   // Globals
   const todoList = document.getElementById('todo-list');
   const userSelect = document.getElementById('user-todo');
   const form = document.querySelector('form');
-  let todos = [];
-  let users = [];
+  let todos: Todo[] = [];
+  let users: User[] = [];
 
   // Attach Events
   document.addEventListener('DOMContentLoaded', initApp);
   form.addEventListener('submit', handleSubmit);
 
   // Basic Logic
-  function getUserName(userId) {
+  function getUserName(userId: ID) {
     const user = users.find((u) => u.id === userId);
     return user.name;
   }
