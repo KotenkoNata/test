@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 
 import {Todo} from './types';
 import NewTodoForm from './components/NewTodoForm'
-import TodoItem from './components/TodoItem'
+import TodoList from "./components/TodoList";
 import './App.css';
 
 function App() {
@@ -17,20 +17,26 @@ function App() {
     setTodos([newTodo, ...todos]);
   }
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(res => res.json())
-      .then((data: Todo[]) => {
-        setTodos(data);
-      })
-  }, []);
+  const toggleTodo = (id: Todo['id'])=>{
+    setTodos(todos.map(todo=>{
+      if(todo.id !== id) return todo;
+      return {
+        ...todo,
+        completed:!todo.completed,
+      }
+    }))
+  }
+
+  const removeTodo = (id: Todo['id'])=>{
+    setTodos(todos.filter(todo=>todo.id!==id));
+  }
 
   return (
     <div className="App">
       <NewTodoForm
         handleClick={addTodo}
       />
-      <TodoItem id='112' completed={false} title="first todo" style={{ border: '1px sold white' }}/>
+      <TodoList list={todos} toggleTodo={toggleTodo} removeTodo={removeTodo}/>
     </div>
   );
 }
