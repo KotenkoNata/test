@@ -1,17 +1,25 @@
 import styles from './UserCard.module.scss';
 import {LocalGithubUser} from "../../types";
 import {UserStat, UserStatProps} from "../UserStat";
+import {UserTitle} from "../UserTitle";
 
 interface UserCardProps extends LocalGithubUser{ }
 
-const localDate = new Intl.DateTimeFormat('en-GB');
 
-export const UserCard = (props: UserCardProps) => (
-  <div className={styles.userCard} data-testid="UserCard">
-    <UserStat
-    repos = {props.repos}
-    followers = {props.followers}
-    following = {props.following}
-    />
-  </div>
-);
+
+export const UserCard = (props: UserCardProps) => {
+    return (
+        <div className={styles.userCard} data-testid="UserCard">
+            <img src={props.avatar} alt={props.login} className={styles.avatar}/>
+            <UserTitle login={props.login} name={props.name} created={props.created} />
+            <p className={`${styles.bio}${props.bio ? '' : ` ${styles.empty}`}`}>
+                {props.bio || 'This profile has no bio'}
+            </p>
+            <UserStat
+                repos = {props.repos}
+                followers = {props.followers}
+                following = {props.following}
+            />
+        </div>
+    );
+}
