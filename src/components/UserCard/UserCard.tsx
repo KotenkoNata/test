@@ -1,6 +1,6 @@
 import styles from './UserCard.module.scss';
 import {LocalGithubUser} from "../../types";
-import {UserStat, UserStatProps} from "../UserStat";
+import {UserStat} from "../UserStat";
 import {UserTitle} from "../UserTitle";
 import {UserInfo} from "../UserInfo";
 
