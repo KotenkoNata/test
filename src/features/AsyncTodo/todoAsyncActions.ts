@@ -4,7 +4,7 @@ import {Todo} from 'types';
 export const fetchAllTodos = createAsyncThunk(
     'todos/fetchTodos',
     async () => {
-        const response = await fetch('https://jsonplaceholder.typecode.com/todos?_limit=10');
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10');
 
         return (await response.json()) as Todo[];
     },
@@ -19,7 +19,7 @@ export const createTodo = createAsyncThunk(
             completed: false,
         }
 
-        const response = await  fetch('https://jsonplaceholder.typecode.com/todos',{
+        const response = await  fetch('https://jsonplaceholder.typicode.com/todos',{
             method: 'POST',
             headers:{
                 'Content-type': 'application/json',
