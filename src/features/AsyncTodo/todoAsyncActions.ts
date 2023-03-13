@@ -47,3 +47,49 @@ export const createTodo = createAsyncThunk<
         return await response.json();
     }
 );
+
+export const removeTodo = createAsyncThunk<
+    Todo['id'],
+    Todo['id'],
+    {rejectValue: string}
+>(
+    'todo/removeTodo',
+    async (id, {rejectWithValue}) =>{
+        const response = await fetch('http://jsonplaceholder.typicode.com/todos/'+id, {
+            method: 'DELETE',
+        });
+        if(!response.ok){
+        return rejectWithValue('Impossible to delete todo with id '+id);
+        }
+        return id;
+},
+)
+
+export const toggleTodo = createAsyncThunk<
+    Todo,
+    Todo['id'],
+    {state: {asyncTodos: TodoSlice}, rejectValue: string}
+>(
+    'todo/toggle',
+    async (id, {getState, rejectWithValue}) =>{
+        const todo = getState().asyncTodos.list.find(el=>el.id === id);
+
+        if(todo){
+            const response = await fetch('http://jsonplaceholder.typicode.com/todos/'+id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    completed: !todo.completed,
+                })
+            })
+
+            if(!response.ok){
+                return rejectWithValue('Impossible to update todo with id '+id);
+            }
+            return await response.json();
+        }
+        return rejectWithValue('No such todo with id '+id)
+    }
+)
