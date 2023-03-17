@@ -11,7 +11,7 @@ export const useSearch = (): [string, onSearch] => {
   const dispatch = useAppDispatch();
   const search = useSelector(selectSearch);
 
-  const handleSearch = (e) => {
+  const handleSearch: onSearch = (e) => {
     dispatch(setSearch(e.target.value))
   }
 
