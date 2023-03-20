@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import Select, {Props} from 'react-select';
-import {Region} from "types";
+import Select, { Props } from 'react-select';
+import { Region } from 'types';
 
-export type CountryOption  = {
+export type CountryOption = {
   label: Region,
   value: Region,
 } | '';
@@ -11,8 +11,9 @@ export type CountryOption  = {
 function MySelect(props: Props<CountryOption, false>) {
   return (
       <Select {...props} />
-  )
+  );
 }
+
 export const CustomSelect = styled(MySelect).attrs({
   styles: {
     control: (provided) => ({
@@ -30,8 +31,8 @@ export const CustomSelect = styled(MySelect).attrs({
       cursor: 'pointer',
       color: 'var(--colors-text)',
       backgroundColor: state.isSelected
-        ? 'var(--colors-bg)'
-        : 'var(--colors-ui-base)',
+          ? 'var(--colors-bg)'
+          : 'var(--colors-ui-base)',
     }),
   },
 })`
